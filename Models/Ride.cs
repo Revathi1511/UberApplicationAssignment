@@ -27,5 +27,13 @@ namespace UberApplication.Models
         public ICollection<Driver> Drivers { get; set; }
     }
 
-    //todo
+    public class RideDto
+    {
+        public int RideId { get; set; }
+        public string RideName { get; set; }
+
+        public int RideNum { get; set; }
+
+
+    }
 }
