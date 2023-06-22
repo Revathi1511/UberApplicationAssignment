@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using UberApplication.Models;
+using System.Diagnostics;
 
 namespace UberApplication.Controllers
 {
@@ -38,17 +39,18 @@ namespace UberApplication.Controllers
         public IHttpActionResult FindRide(int id)
         {
             Ride ride = db.Rides.Find(id);
-            if (ride == null)
-            {
-                return NotFound();
-            }
-
             RideDto rideDto = new RideDto()
             {
                 RideId = ride.RideId,
                 RideName = ride.RideName,
                 RideNum = ride.RideNum
             };
+            if (ride == null)
+            {
+                return NotFound();
+            }
+
+           
 
             return Ok(rideDto);
         }
@@ -58,6 +60,7 @@ namespace UberApplication.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult UpdateRide(int id, Ride ride)
         {
+            Debug.WriteLine("I have reached the update animal method!");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
