@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "list";
+}
+
+<h2>list</h2>
+<a href="/Ride/New">New Ride</a>
+@foreach (var ride in Model)
+{
+    <h2><a href="/Ride/Details/@ride.RideID">@ride.RideName</a></h2>
+    <div>Number: @ride.RideNum</div>
+    
+
+
+}
+

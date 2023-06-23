@@ -1,0 +1,14 @@
+﻿﻿@model UberApplication.Models.RideDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this ride?</h2>
+<a href="/Ride/List">Cancel</a>
+<h2>@Model.RideName</h2>
+<div>weight: @Model.RideNum kg</div>
+<div>species: @Model.RideId</div>
+<form action="/Ride/Delete/@Model.RideId" method="POST">
+    <input type="submit" value="Confirm Delete" />
+
+</form>

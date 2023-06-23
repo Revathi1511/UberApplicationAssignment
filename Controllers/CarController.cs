@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Net.Http;
-using System.Diagnostics;
 using UberApplication.Models;
 using System.Web.Script.Serialization;
-using UberApplication.Models.viewmodels;
-using UberApplication.Migrations;
 
 namespace UberApplication.Controllers
 {
@@ -17,69 +12,31 @@ namespace UberApplication.Controllers
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
-        public object ResponsibleDrivers { get; private set; }
-        public object AvailableDrivers { get; private set; }
-
         static CarController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44324/api/");
+            client.BaseAddress = new Uri("https://localhost:44391/api/");
         }
-    
+
         // GET: Car/List
-        public ActionResult List()
+        public ActionResult Index()
         {
-            //objective: communicate with our animal data api to retrieve a list of animals
-            //curl https://localhost:44324/api/ridesdata/listrides
-
-
-            string url = "animaldata/listanimals";
+            string url = "CarsData/GetCars";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            //Debug.WriteLine("The response code is ");
-            //Debug.WriteLine(response.StatusCode);
+            IEnumerable<CarDto> cars = response.Content.ReadAsAsync<IEnumerable<CarDto>>().Result;
 
-            IEnumerable<RideDto> animals = response.Content.ReadAsAsync<IEnumerable<RideDto>>().Result;
-            //Debug.WriteLine("Number of animals received : ");
-            //Debug.WriteLine(animals.Count());
-
-
-            return View(animals);
+            return View(cars);
         }
+
         public ActionResult Details(int id)
         {
-            DetailsRides ViewModel = new DetailsRides();
-
-            //objective: communicate with our animal data api to retrieve one animal
-            //curl https://localhost:44324/api/animaldata/findanimal/{id}
-
-            string url = "ridesdata/findride/"+id;
+            string url = "CarsData/GetCar/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Debug.WriteLine("The response code is ");
-            Debug.WriteLine(response.StatusCode);
+            CarDto selectedCar = response.Content.ReadAsAsync<CarDto>().Result;
 
-            RideDto SelectedRide = response.Content.ReadAsAsync<RideDto>().Result;
-            Debug.WriteLine("Ride arrived : ");
-            Debug.WriteLine(SelectedRide.RideName);
-
-            ViewModel.SelectedRide = SelectedRide;
-
-            //show associated keepers with this animal
-            url = "cardata/listcars/"+id;
-            response = client.GetAsync(url).Result;
-            IEnumerable<RideDto> ResponsibleKeepers = response.Content.ReadAsAsync<IEnumerable<RideDto>>().Result;
-
-            ViewModel.ResponsibleDrivers = ResponsibleDrivers;
-
-            url = "keeperdata/listkeepersnotcaringforanimal/" + id;
-                response = client.GetAsync(url).Result;
-            IEnumerable<RideDto> AvailableKeepers = response.Content.ReadAsAsync<IEnumerable<RideDto>>().Result;
-
-            ViewModel.AvailableDrivers = AvailableDrivers;
-
-
-            return View(ViewModel);
+            return View(selectedCar);
         }
 
         // GET: Car/Create
@@ -90,88 +47,82 @@ namespace UberApplication.Controllers
 
         // POST: Car/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection, object rides)
+        public ActionResult Create(CarDto car)
         {
-            Debug.WriteLine("the json payload is :");
-            
-            //curl -H "Content-Type:application/json" -d @animal.json https://localhost:44324/api/ridesdata/addride 
-            string url = "ridesdata/addride";
+            string url = "CarsData/PostCar";
 
+            string jsonPayload = jss.Serialize(car);
 
-            string jsonpayload = jss.Serialize(rides);
-            Debug.WriteLine(jsonpayload);
-
-            HttpContent content = new StringContent(jsonpayload);
+            HttpContent content = new StringContent(jsonPayload);
             content.Headers.ContentType.MediaType = "application/json";
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Index");
             }
             else
             {
                 return RedirectToAction("Error");
             }
-
-
         }
-
 
         // GET: Car/Edit/5
         public ActionResult Edit(int id)
         {
-            UpdateRides ViewModel = new UpdateRides();
-
-            //the existing animal information
-            string url = "ridesdata/findride/" + id;
+            string url = "CarsData/GetCar/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            RideDto SelectedRide = response.Content.ReadAsAsync<RideDto>().Result;
-            ViewModel.SelectedRide = SelectedRide;
 
-          
+            CarDto selectedCar = response.Content.ReadAsAsync<CarDto>().Result;
 
-            return View(ViewModel);
+            return View(selectedCar);
         }
-
 
         // POST: Car/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, CarDto car)
         {
-            try
-            {
-                // TODO: Add update logic here
+            string url = "CarsData/PutCar/" + id;
 
+            string jsonPayload = jss.Serialize(car);
+
+            HttpContent content = new StringContent(jsonPayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PutAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Car/Delete/5
+        // GET: Car/Delete
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "ridesdata/findride/" + id;
+            string url = "CarsData/GetCar/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            RideDto selectedride = response.Content.ReadAsAsync<RideDto>().Result;
-            return View(selectedride);
+
+            CarDto selectedCar = response.Content.ReadAsAsync<CarDto>().Result;
+
+            return View(selectedCar);
         }
 
-        // POST: car/Delete/5
+        // POST: Car/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "ridesdata/deleteride/" + id;
+            string url = "CarsData/DeleteCar/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Index");
             }
             else
             {

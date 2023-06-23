@@ -183,6 +183,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarController.cs" />
+    <Compile Include="Controllers\CarsDataController.cs" />
     <Compile Include="Controllers\DetailsRides.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -226,6 +227,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Ride.cs" />
+    <Compile Include="Models\viewmodels\DetailsCars.cs" />
+    <Compile Include="Models\viewmodels\DetailsDrivers.cs" />
+    <Compile Include="Models\viewmodels\DetailsRides.cs" />
     <Compile Include="Models\viewmodels\updaterides.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -287,11 +291,20 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\ride\list.cshtml" />
+    <Content Include="Views\Account\ride\edit.cshtml" />
+    <Content Include="Views\Account\ride\DeleteConfirm.cshtml" />
+    <Content Include="Views\Account\ride\error.cshtml" />
+    <Content Include="Views\Account\ride\New.cshtml" />
+    <Content Include="Views\Car\Index.cshtml" />
+    <Content Include="Views\Car\Details.cshtml" />
+    <Content Include="Views\Car\Create.cshtml" />
+    <Content Include="Views\Car\Edit.cshtml" />
+    <Content Include="Views\Car\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CarData\" />
-    <Folder Include="Views\Car\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

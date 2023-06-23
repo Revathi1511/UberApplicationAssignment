@@ -17,8 +17,8 @@ namespace UberApplication
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                defaults: new { controller = "RidesData", id = RouteParameter.Optional }
+    );
         }
     }
 }

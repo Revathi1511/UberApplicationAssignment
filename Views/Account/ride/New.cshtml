@@ -1,0 +1,28 @@
+﻿﻿@model IEnumerable<UberApplication.Models.RideDto>
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create Ride</h2>
+<form action="/Ride/Create" method="POST">
+    <div>
+        <label>Name:</label> <input type="text" name="RideName" />
+    </div>
+    <div>
+        <label>Number:</label> <input type="number" name="RideNum" />
+    </div>
+    <div>
+        <label>Cars:</label>
+        <select name="RideID">
+            @foreach (var car in Model)
+            {
+                <option value="@car.CarID">@car.carName</option>
+
+            }
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Add Ride" />
+
+    </div>
+</form>

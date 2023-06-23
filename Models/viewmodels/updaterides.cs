@@ -11,10 +11,10 @@ namespace UberApplication.Models.viewmodels
 
         //the existing Ride information
 
-        public RideDto SelectedAnimal { get; set; }
+        public RideDto selectRide { get; set; }
 
-        // all species to choose from when updating this animal
+        // all species to choose from when updating this ride
 
-        public IEnumerable<RideDto> SpeciesOptions { get; set; }
+        public IEnumerable<RideDto> CarsOptions { get; set; }
     }
 }

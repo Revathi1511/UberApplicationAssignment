@@ -16,4 +16,13 @@ namespace UberApplication.Models
 
         public bool CarRemoved { get; set; }
     }
+
+    public class CarDto
+    {
+        public int CarID { get; set; }
+
+        public string CarName { get; set; }
+
+        public bool CarRemoved { get; set; }
+    }
 }
