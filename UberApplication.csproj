@@ -185,6 +185,8 @@
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CarsDataController.cs" />
     <Compile Include="Controllers\DetailsRides.cs" />
+    <Compile Include="Controllers\DriversController.cs" />
+    <Compile Include="Controllers\DriversDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RidesDataController.cs" />
@@ -219,6 +221,10 @@
     <Compile Include="Migrations\202306120311106_drivers-rides.cs" />
     <Compile Include="Migrations\202306120311106_drivers-rides.designer.cs">
       <DependentUpon>202306120311106_drivers-rides.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306232239295_drivers.cs" />
+    <Compile Include="Migrations\202306232239295_drivers.designer.cs">
+      <DependentUpon>202306232239295_drivers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -301,6 +307,16 @@
     <Content Include="Views\Car\Create.cshtml" />
     <Content Include="Views\Car\Edit.cshtml" />
     <Content Include="Views\Car\DeleteConfirm.cshtml" />
+    <Content Include="Views\Drivers\Create.cshtml" />
+    <Content Include="Views\Drivers\DeleteConfirm.cshtml" />
+    <Content Include="Views\Drivers\Details.cshtml" />
+    <Content Include="Views\Drivers\Edit.cshtml" />
+    <Content Include="Views\Drivers\Index.cshtml" />
+    <Content Include="Views\Driver\Index.cshtml" />
+    <Content Include="Views\Driver\Details.cshtml" />
+    <Content Include="Views\Driver\Create.cshtml" />
+    <Content Include="Views\Driver\Edit.cshtml" />
+    <Content Include="Views\Driver\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306120311106_drivers-rides.resx">
       <DependentUpon>202306120311106_drivers-rides.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306232239295_drivers.resx">
+      <DependentUpon>202306232239295_drivers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

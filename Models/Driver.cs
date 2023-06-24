@@ -19,4 +19,17 @@ namespace UberApplication.Models
 
         
     }
+
+    public class DriverDto
+    {
+        public int DriverID { get; set; }
+        public string DriverFirstName { get; set; }
+        public string DriverLastName { get; set; }
+
+
+        //A driver can ride many cars
+        public List<Ride> Rides { get; set; }
+
+
+    }
 }

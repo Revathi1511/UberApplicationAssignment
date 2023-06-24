@@ -30,7 +30,9 @@ namespace UberApplication.Models
         //Add a ride entity
         public DbSet<Ride> Rides { get; set; }
         public DbSet<Car> Cars { get; set; }
-         
+
+        public DbSet<Driver> Drivers { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
